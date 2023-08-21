@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import api from "./api";
 const App = () => {
-  const [transaction, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [formData, setFormData] = useState({
     amount: "",
     category: "",
@@ -19,7 +19,7 @@ const App = () => {
     fetchTransactions();
   }, []);
 
-  const handleInputCHnage = (event) => {
+  const handleInputChange = (event) => {
     const value =
       event.target.type === "checkbox"
         ? event.target.checked
@@ -48,7 +48,7 @@ const App = () => {
       <nav className="navbar navbar-dark bg-primary">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
-            FInance App
+            Finance App
           </a>
         </div>
       </nav>
@@ -63,11 +63,86 @@ const App = () => {
               className="form-control"
               id="amount"
               name="amount"
-              onChange={handleInputCHnage}
+              onChange={handleInputChange}
               value={formData.amount}
             />
           </div>
+          <div className="mb-3 ">
+            <label htmlFor="category" className="form-label">
+              Category
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="category"
+              name="category"
+              onChange={handleInputChange}
+              value={formData.category}
+            />
+          </div>
+          <div className="mb-3 ">
+            <label htmlFor="description" className="form-label">
+              Description
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="description"
+              name="description"
+              onChange={handleInputChange}
+              value={formData.description}
+            />
+          </div>
+          <div className="mb-3 ">
+            <label htmlFor="is_income">Income ?</label>
+            <input
+              type="checkbox"
+              id="is_income"
+              name="is_income"
+              onChange={handleInputChange}
+              value={formData.is_income}
+            />
+          </div>
+          <div className="mb-3 ">
+            <label htmlFor="date" className="form-label">
+              Date
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="date"
+              name="date"
+              onChange={handleInputChange}
+              value={formData.date}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            SUbmit
+          </button>
         </form>
+
+        <table className="table table-striped table-bordered table-hover mt-3">
+          <thead>
+            <tr>
+              <th>Amount</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Income</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {transactions.map((transaction) => (
+              <tr key={transaction.id}>
+                <td>{transaction.amount}</td>
+                <td>{transaction.category}</td>
+                <td>{transaction.description}</td>
+                <td>{transaction.is_income ? "Yes" : "No"}</td>
+                <td>{transaction.date}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
